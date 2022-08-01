@@ -1,0 +1,21 @@
+
+.slugdataimages{
+    position: relative;
+    
+    img{
+        margin: 5px;
+    }
+    img:hover{
+        cursor: pointer;
+        
+    }
+
+}
+.slugdataimages:hover{
+    .produt_hover_btn{
+        display: block !important;
+        position: absolute;
+        top: -6px;
+        right: 0;
+    }
+}
