@@ -4,16 +4,13 @@ import PageSpinner from './components/PageSpinner';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-// import AuthForm from './components/AuthForm';
 import './styles/reduction.scss'; 
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { postContact } from './host/config';
 const AlertPage = React.lazy(() => import('./pages/AlertPage'));
-// const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const BadgePage = React.lazy(() => import('./pages/BadgePage'));
 const ButtonGroupPage = React.lazy(() => import('./pages/ButtonGroupPage'));
 const Product  = React.lazy(() => import('./pages/Product'));
-
 const ButtonPage = React.lazy(() => import('./pages/ButtonPage'));
 const CardPage = React.lazy(() => import('./pages/CardPage'));
 const Subcategory = React.lazy(() => import('./pages/Subcategory'));
@@ -23,9 +20,6 @@ const ProductImg = React.lazy(() => import('./pages/ProductImg'));
 const PromotionsPage = React.lazy(() => import('./pages/PromotionsPage'));
 const ModalPage = React.lazy(() => import('./pages/ModalPage'));
 const ProgressPage = React.lazy(() => import('./pages/ProgressPage'));
-// const TablePage = React.lazy(() => import('pages/TablePage'));
-// const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
-// const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 
 
 class App extends React.Component {

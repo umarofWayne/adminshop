@@ -19,9 +19,7 @@ export const postContact= (data) => {
           url: `${host}/api/v1/categories/`,
           method: "GET",
           headers:{
-            'Authorization': `Token ${access_token}`,
             "Accept-Language": `${lang}`,
-            "Content-Type": "multipart/form-data"
           }
         };
         return httpRequest(config);
@@ -57,7 +55,6 @@ export const postContact= (data) => {
           data: data,
           headers: {
             'Authorization': `Token ${access_token}`,
-            // "Accept-Language": `${lang}`,
             'Content-Type': "multipart/form-data"
           }
         };
@@ -107,7 +104,6 @@ export const postContact= (data) => {
           data: data,
           headers: {
             'Authorization': `Token ${access_token}`,
-            // "Accept-Language": `${lang}`,
             'Content-Type': "multipart/form-data"
           }
         };
@@ -124,7 +120,6 @@ export const putProduct=(slug, data)=>{
     data: data,
     headers: {
       'Authorization': `Token ${access_token}`,
-      // "Accept-Language": `${lang}`,
       'Content-Type': "multipart/form-data"
     }
   };
@@ -158,7 +153,6 @@ export const getProduct=()=>{
           data:data,
           headers: {
             'Authorization': `Token ${access_token}`,
-            "Accept-Language": `${lang}`,
             "Content-Type": "multipart/form-data"
           }
         };
@@ -222,7 +216,6 @@ export const getProduct=()=>{
         data: data,
         headers: {
           'Authorization': `Token ${access_token}`,
-          // "Accept-Language": `${lang}`,
           'Content-Type': "multipart/form-data"
         }
       };
@@ -341,3 +334,37 @@ export const getContacts=(data)=>{
   }
   return httpRequest(config)
 };
+
+export const postDollors=(data)=>{
+  const config = {
+    url:`${host}/api/v1/currency/`,
+    method: "post",
+    data:data,
+    headers:{
+      'Authorization': `Token ${access_token}`,
+      "Accept-Language": `${lang}`,
+      "Content-Type":"multipart/form-data"
+    }
+
+  }
+  return httpRequest(config)
+};
+export const getDollor=()=>{
+  const config = {
+    url:`${host}/api/v1/currency/${3}/`,
+    method:"GET"
+  }
+  return httpRequest(config)
+};
+export const putDollor=()=>{
+  const config={
+    url:`${host}/api/v1/currency/${3}/`,
+    method: "PATCH",
+    headers:{
+    'Authorization': `Token ${access_token}`,
+    // "Content-Type":"multipart/form-data"
+    "Content-Type": "application/json" 
+  }
+}
+  return httpRequest(config)
+}

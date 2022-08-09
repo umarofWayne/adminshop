@@ -24,6 +24,7 @@ console.log(res.data);
 }
 getSubCategory=()=>{
   getSubCategorys().then(res=>{
+    
 this.setState({data1:res.data})
 console.log(res.data);
   })  

@@ -40,7 +40,7 @@ const navComponents = [
     Icon: MdGroupWork,
   },
   { to: '/subcategory', name: 'subcategory', exact: false, Icon: MdInsertChart },
-  { to: '/productimg', name: 'Product Images', exact: false, Icon: MdChromeReaderMode },
+  // { to: '/productimg', name: 'Product Images', exact: false, Icon: MdChromeReaderMode },
   { to: '/promotions', name: 'Aksiya', exact: false, Icon: MdViewList },
   // {
   //   to: '/dropdowns',

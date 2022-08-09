@@ -13,6 +13,7 @@ state={
     console.log(lang);
     localStorage.setItem("lang",lang)
     var lang1 = document.getElementById('language').value
+    window.location.reload();
   }
 
 
