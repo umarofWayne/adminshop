@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Card, CardImg, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
-import Page from 'components/Page';
-import { deleteImages, getCategorys, getImages, getProduct, PostImages } from '../host/config';
+import Page from '../components/Page';
+import { deleteImages,  getImages, getProduct, PostImages } from '../host/config';
 
 
 export default class ProductImg extends Component {

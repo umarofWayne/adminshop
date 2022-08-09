@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup,  Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
+import { MdDelete } from 'react-icons/md';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
-import Page from 'components/Page';
+import Page from '../components/Page';
 import { addPromotions, deleteImages, deleteProducts, getCategorys, getImages, getImgSlug, getProduct, getPromotions, getSubCategorys, PostImages, postProduct } from '../host/config';
 import '../styles/components/productJs.scss'
 
@@ -22,7 +23,15 @@ export default class Product extends Component {
     dataPromotion2: null,
     slugdata: [],
     slugdataimages: [],
+    lang:[]
   }
+
+
+  getLang=()=>{
+    var lang = localStorage.getItem('lang')
+    console.log("heelloo",lang);
+  }
+
 
   getCategory = () => {
     getCategorys().then(res => {
@@ -89,10 +98,10 @@ export default class Product extends Component {
       "title_ru": document.querySelector('#newTitleRu').value,
       "title_uz": document.querySelector('#newTitleUz').value,
       "category": document.querySelector('#category').value,
-      "subcategory": document.querySelector('#subcategory').value,
-      "description_uz": document.querySelector('#newDescription').value,
-      "description_ru": document.querySelector('#newDescription').value,
-      "description_en": document.querySelector('#newDescription').value,
+      "sub_category": document.querySelector('#subcategory').value,
+      "description_uz": document.querySelector('#newDescription_uz').value,
+      "description_ru": document.querySelector('#newDescription_ru').value,
+      "description_en": document.querySelector('#newDescription_en').value,
       "price": document.querySelector('#newPrice').value,
       "characteristics": document.querySelector('#newCharacteritics').value,
     }
@@ -102,15 +111,18 @@ export default class Product extends Component {
       "product": document.querySelector('#newTitleEn').value
     }
     console.log(data1);
-
     postProduct(data1).then(res => {
       this.getProduct1()
-      PostImages(dataimg)
-      console.log(res.data);
-      this.getProduct1()
+      console.log(this.postProduct1);         
+       PostImages(dataimg).then(res=>{
+          this.getProduct1()
+       })
+       this.getProduct1() 
+       this.setState({})
+       
     })
-
     this.handleClose()
+
   }
 
   handleFile(e) {
@@ -195,7 +207,7 @@ export default class Product extends Component {
                   <thead>
                     <tr>
                       <th>Image</th>
-                      <th>Title <input placeholder='search title' /></th>
+                      <th>Title <input placeholder='search title' onKeyUp={()=>{this.setState({})}} className='search33' /></th>
                       <th>Description</th>
                       <th>Price</th>
                       <th>Edit</th>
@@ -206,9 +218,10 @@ export default class Product extends Component {
                     </tr>
                   </thead>
                   {this.state.data.map(item => {
+                    if((item.title).toLowerCase().includes((document.querySelector('.search33').value).toLowerCase())){
                     return <tbody>
                       <tr>
-                        <th scope="row"><img className='w-10' style={{ width: '300px' }} src={item.thumbnail == null ? (item.image) : (item.thumbnail.image)} alt='Card image' /></th>
+                        <th scope="row"><img className='w-10' style={{ width: '300px' }} src={item.thumbnail == null ? (item.image) : (item.thumbnail.image)} alt='NO image' /></th>
                         <td>{item.title}</td>
                         <td>{item.description}</td>
                         <td>{item.price}</td>
@@ -218,7 +231,7 @@ export default class Product extends Component {
                         <td><button className='btn btn-danger ml-3' onClick={() => this.deleteProduct(item.slug)}>Delete</button></td>
                       </tr>
                     </tbody>
-
+}
                   })}   </Table>
                 </CardBody>
               </Card>
@@ -228,45 +241,53 @@ export default class Product extends Component {
             <ModalHeader >Modal title</ModalHeader>
             <ModalBody>
               <div className='mb-2'>
-                <h3>Name for new card</h3>
+                <h5>Name for new card</h5>
                 <input type="text" id="newTitleEn" placeholder="New card name(en)" required />
               </div>
               <div className='mb-2'>
-                <h3>Name for new card</h3>
+                <h5>Name for new card</h5>
                 <input type="text" id="newTitleRu" placeholder="New card name(ru)" required />
               </div>
               <div className='mb-2'>
-                <h3>Name for new card</h3>
+                <h5>Name for new card</h5>
                 <input type="text" id="newTitleUz" placeholder="New card name(uz)" required />
               </div>
               <div className='mt-3'>
-                <h3>Category of new card</h3>
+                <h5>Category of new card</h5>
                 <Input type="select" id="category" name="select">
                   {this.state.category.map(item => { return <option value={item.slug}>{item.title}</option> })}
 
                 </Input>
               </div>
               <div className='mt-3'>
-                <h3>Sub-Category of new card</h3>
+                <h5>Sub-Category of new card</h5>
                 <Input type="select" id="subcategory" name="select">
                   {this.state.subcategory.map(item1 => { return <option value={item1.slug}>{item1.title}</option> })}
 
                 </Input>
               </div>
               <div className='mt-3'>
-                <h3>Description of new card</h3>
-                <input type="text" id="newDescription" placeholder="Description card category" requiered />
+                <h5>Description of new card(uz)</h5>
+                <input type="text" id="newDescription_uz" placeholder="Description card card(uz)" requiered />
               </div>
               <div className='mt-3'>
-                <h3>Price of new card</h3>
+                <h5>Description of new card(en)</h5>
+                <input type="text" id="newDescription_en" placeholder="Description card card(en)" requiered />
+              </div>
+              <div className='mt-3'>
+                <h5>Description of new card(ru)</h5>
+                <input type="text" id="newDescription_ru" placeholder="Description card card(ru)" requiered />
+              </div>
+              <div className='mt-3'>
+                <h5>Price of new card</h5>
                 <input type="number" id="newPrice" placeholder="New card price" requiered />
               </div>
               <div className='mt-3'>
-                <h3>Characteristics of new card</h3>
+                <h5>Characteristics of new card</h5>
                 <input type="text" id="newCharacteritics" placeholder="New card characeristics" />
               </div>
               <div className='mt-3'>
-                <h3>Image of new card</h3>
+                <h5>Image of new card</h5>
                 <input type="file" onInput={(e) => this.handleFile(e)} id="file" requiered />
               </div>
             </ModalBody>
@@ -313,7 +334,7 @@ export default class Product extends Component {
             <ModalBody>
               <Form>
                 <FormGroup>
-                  <Label for="exampleImage">Image</Label>
+                  <Label for="exampleImage">new image</Label>
                   <Input onInput={(e) => this.handleFile(e)} id="file" type="file" >
                   </Input>
                 </FormGroup>
@@ -321,15 +342,10 @@ export default class Product extends Component {
                   {this.state.slugdataimages.map(item => {
                   return <div className='slugdataimages'>
                     <img style={{ width: "100px" }} src={item.image} />
-                    <button type='button' onClick ={() => this.deleteImage(item.id)} style={{ display: "none" }} className='produt_hover_btn'>X</button>
+                    <button type='button' style={{ display: "none" }} className='produt_hover_btn'><MdDelete onClick ={() => this.deleteImage(item.id)} className="delete12" /></button>
                   </div>
                 })} </div>
-                {/* <FormGroup>
-                  <Label for="exampleSelect">Category</Label>
-                  <Input type="select" id="category" name="select">
-                   {this.state.category.map(item=>{ return <option  value={item.slug}>{item.title}</option>})}
-                  </Input>
-                </FormGroup> */}
+                 {/* <Input onInput={(e) => this.handleFile(e)} id="file" type="file" ></Input><Button></Button> */}
               </Form>
             </ModalBody>
             <ModalFooter>

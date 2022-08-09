@@ -1,5 +1,5 @@
 import { host,access_token,httpRequest } from "./host"
-
+import { lang} from "./host"
 // post login
 export const postContact= (data) => {
     const config = {
@@ -117,6 +117,7 @@ export const getProduct=()=>{
           data:data,
           headers: {
             'Authorization': `Token ${access_token}`,
+            "Accept-Language": `${lang}`,
             "Content-Type": "multipart/form-data"
           }
         };
@@ -188,7 +189,7 @@ export const getProduct=()=>{
     export const  addPromotions=(data,id)=>{
       let config = {
         url: `${host}/api/v1/products/promotions/add-remove/${id}/`,
-        method: "put",
+        method: "patch",
         data:data,
         headers:{
           'Authorization': `Token ${access_token}`,
@@ -217,3 +218,71 @@ export const getProduct=()=>{
       }
       return httpRequest(config)
     };
+
+
+
+
+
+
+
+// post companiye
+export const postCopany=(data)=>{
+  let config = {
+    url: `${host}/api/v1/company/`,
+    method: "post",
+    data:data,
+    headers:{
+      'Authorization': `Token ${access_token}`,
+      "Accept-Language": `${lang}`,
+      "Content-Type":"multipart/form-data"
+    }
+  }
+  return httpRequest(config);
+};
+
+export const getCompany=()=>{
+  const config={
+    url:`${host}/api/v1/company/4/`,
+    method: "GET",
+  }
+  return httpRequest(config)
+};
+
+
+export const putCompany=()=>{
+  const config={
+    url:`${host}/api/v1/company/4/`,
+    method: "PATCH",
+    headers:{
+    'Authorization': `Token ${access_token}`,
+    "Accept-Language": `${lang}`,
+    "Content-Type":"multipart/form-data"
+  }
+}
+  return httpRequest(config)
+}
+
+
+//contacts
+export const postContacts=(data)=>{
+  const config = {
+    url:`${host}/api/v1/contacts/create/`,
+    method: "post",
+    data:data,
+    headers:{
+      'Authorization': `Token ${access_token}`,
+      "Accept-Language": `${lang}`,
+      "Content-Type":"multipart/form-data"
+    }
+
+  }
+  return httpRequest(config)
+};
+
+export const getContacts=(data)=>{
+  const config = {
+    url:`${host}/api/v1/contacts/`,
+    method:"GET"
+  }
+  return httpRequest(config)
+};

@@ -1,6 +1,6 @@
-import GAListener from 'components/GAListener';
-import { LayoutRoute, MainLayout } from 'components/Layout';
-import PageSpinner from 'components/PageSpinner';
+import GAListener from './components/GAListener';
+import { MainLayout } from './components/Layout';
+import PageSpinner from './components/PageSpinner';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
@@ -8,21 +8,21 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { postContact } from './host/config';
-const AlertPage = React.lazy(() => import('pages/AlertPage'));
+const AlertPage = React.lazy(() => import('./pages/AlertPage'));
 // const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
-const BadgePage = React.lazy(() => import('pages/BadgePage'));
-const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
+const BadgePage = React.lazy(() => import('./pages/BadgePage'));
+const ButtonGroupPage = React.lazy(() => import('./pages/ButtonGroupPage'));
 const Product  = React.lazy(() => import('./pages/Product'));
 
-const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
-const CardPage = React.lazy(() => import('pages/CardPage'));
-const Subcategory = React.lazy(() => import('pages/Subcategory'));
-const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
-const DropdownPage = React.lazy(() => import('pages/DropdownPage'));
-const ProductImg = React.lazy(() => import('pages/ProductImg'));
-const PromotionsPage = React.lazy(() => import('pages/PromotionsPage'));
-const ModalPage = React.lazy(() => import('pages/ModalPage'));
-const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
+const ButtonPage = React.lazy(() => import('./pages/ButtonPage'));
+const CardPage = React.lazy(() => import('./pages/CardPage'));
+const Subcategory = React.lazy(() => import('./pages/Subcategory'));
+const DashboardPage = React.lazy(() => import('./pages/DashboardPage'));
+const DropdownPage = React.lazy(() => import('./pages/DropdownPage'));
+const ProductImg = React.lazy(() => import('./pages/ProductImg'));
+const PromotionsPage = React.lazy(() => import('./pages/PromotionsPage'));
+const ModalPage = React.lazy(() => import('./pages/ModalPage'));
+const ProgressPage = React.lazy(() => import('./pages/ProgressPage'));
 // const TablePage = React.lazy(() => import('pages/TablePage'));
 // const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 // const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
@@ -31,7 +31,7 @@ const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
 class App extends React.Component {
 
   state={
-    token:''
+    token:""
   }
   
     pushLogin=()=>{

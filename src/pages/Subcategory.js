@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 // import { Button, ButtonGroup, ButtonToolbar, Card, CardBody, CardHeader, CardText, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
-import bg1Image from 'assets/img/bg/background_640-1.jpg';
 import { deleteSubCategorys, getCategorys, getSubCategorys, PostCategorys, PostSubCategorys } from '../host/config';
-import Page from 'components/Page';
+import Page from '../components/Page';
 
 export default class Subcategory extends Component {
   state = {
@@ -23,7 +22,7 @@ console.log(res.data);
 getSubCategory=()=>{
   getSubCategorys().then(res=>{
 this.setState({data1:res.data})
-// console.log(res.data);
+console.log(res.data);
   })  
   // console.log(this.state.data1);
 }
@@ -94,7 +93,7 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                 <CardText>
                 title_ru:{item.title_ru}
                 </CardText>
-              <Button color="success">edit</Button>
+              <Button color="warning">edit</Button>
               <Button color="secondary ml-2" onClick={()=>this.deleteSubcaregory(item.slug)}>delete</Button>
             </CardBody>
           </Card>

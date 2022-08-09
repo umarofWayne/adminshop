@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
-import Page from 'components/Page';
-import { deletePromotions, getCategorys, getProduct, getPromotions, getSubCategorys, postProduct, postPromotions } from '../host/config';
+import Page from '../components/Page';
+import { deletePromotions, getCategorys, getPromotions, getSubCategorys,  postPromotions } from '../host/config';
 
 
 
@@ -55,8 +55,8 @@ postPromotion=()=>{
         "price":document.querySelector('#newPrice').value,
         "date_from":document.querySelector('#startPromotion').value,
         "date_till":document.querySelector('#endPromotion').value,
-        "product":"string"
-        // "image":this.state.file
+        "product":"string",
+        "image":this.state.file
       }
       postPromotions(data1).then(res =>{
         this.getPromotion()
@@ -91,11 +91,11 @@ postPromotion=()=>{
 // }
 
 
-//  handleFile(e) {
-//   let file1 = e.target.files[0];
+ handleFile(e) {
+  let file1 = e.target.files[0];
 
-// this.setState({file:e.target.files})
-// console.log(this.state.file);
+this.setState({file:e.target.files[0]})
+console.log(this.state.file);}
   
 
 // getProduct1 = () =>{
@@ -210,10 +210,10 @@ componentDidMount(){
               <h3>End promotion of new card</h3>
               <input type="date" id="endPromotion"/>
             </div>
-            {/* <div className='mt-3'>
+            <div className='mt-3'>
               <h3>Image of new card</h3>
               <input type="file" onInput={(e)=>this.handleFile(e)} id="file" requiered/>
-            </div> */}
+            </div>
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.postPromotion}>

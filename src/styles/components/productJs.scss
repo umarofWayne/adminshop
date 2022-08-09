@@ -17,5 +17,18 @@
         position: absolute;
         top: -6px;
         right: 0;
+        border: none;
+        // border-radius: 50%;
+        color: black;
+        background-color:white;
     }
+    .delete12:hover{
+        color: red;
+        text-shadow: 0px 0px 10px red;
+    }
+.delete12:active{
+color: rgba(255, 0, 0, 0.507);
+text-shadow: 0px 0px 10px red;
+}
+
 }

@@ -1,5 +1,5 @@
-import sidebarBgImage from 'assets/img/sidebar/sidebar-4.jpg';
-import SourceLink from 'components/SourceLink';
+import sidebarBgImage from '../../assets/img/sidebar/sidebar-4.jpg';
+import SourceLink from '../SourceLink';
 import React from 'react';
 import { FaHome } from 'react-icons/fa';
 import {
@@ -21,7 +21,7 @@ import {
   NavItem,
   NavLink as BSNavLink,
 } from 'reactstrap';
-import bn from 'utils/bemnames';
+import bn from '../../utils/bemnames';
 
 const sidebarBackground = {
   backgroundImage: `url("${sidebarBgImage}")`,

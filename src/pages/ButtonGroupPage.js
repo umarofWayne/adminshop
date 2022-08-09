@@ -1,6 +1,6 @@
-import Page from 'components/Page';
+import Page from '../components/Page';
 import React,{Component} from 'react';
-import { Alert, Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import {  Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import { deleteCategorys, getCategorys, PostCategorys } from '../host/config';
 
 
