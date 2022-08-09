@@ -20,6 +20,7 @@ export const postContact= (data) => {
           method: "GET",
           headers:{
             'Authorization': `Token ${access_token}`,
+            "Accept-Language": `${lang}`,
             "Content-Type": "multipart/form-data"
           }
         };
@@ -49,6 +50,19 @@ export const postContact= (data) => {
         };
         return httpRequest(config);
       };
+      export const putCategory=(slug, data)=>{
+        let config = {
+          url:`${host}/api/v1/categories/${slug}/update/`,
+          method: "PUT",
+          data: data,
+          headers: {
+            'Authorization': `Token ${access_token}`,
+            // "Accept-Language": `${lang}`,
+            'Content-Type': "multipart/form-data"
+          }
+        };
+        return httpRequest(config)
+      }
    
    
    
@@ -86,9 +100,36 @@ export const postContact= (data) => {
         return httpRequest(config);
       };
 
+      export const putSubcategory=(slug, data)=>{
+        let config = {
+          url:`${host}/api/v1/subcategories/${slug}/update/`,
+          method: "PUT",
+          data: data,
+          headers: {
+            'Authorization': `Token ${access_token}`,
+            // "Accept-Language": `${lang}`,
+            'Content-Type': "multipart/form-data"
+          }
+        };
+        return httpRequest(config)
+      }
+
 
 // product
        
+export const putProduct=(slug, data)=>{
+  let config = {
+    url:`${host}//api/v1/products/${slug}/`,
+    method: "PUT",
+    data: data,
+    headers: {
+      'Authorization': `Token ${access_token}`,
+      // "Accept-Language": `${lang}`,
+      'Content-Type': "multipart/form-data"
+    }
+  };
+  return httpRequest(config)
+}
 
 export const getProduct=()=>{
           const config = {
@@ -173,6 +214,20 @@ export const getProduct=()=>{
       }
       return httpRequest(config);
     };
+
+    export const putPromotion=(id, data)=>{
+      let config = {
+        url:`${host}/api/v1/subcategories/${id}/update/`,
+        method: "PUT",
+        data: data,
+        headers: {
+          'Authorization': `Token ${access_token}`,
+          // "Accept-Language": `${lang}`,
+          'Content-Type': "multipart/form-data"
+        }
+      };
+      return httpRequest(config)
+    }
 
 
 

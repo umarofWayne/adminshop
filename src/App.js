@@ -5,7 +5,7 @@ import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 // import AuthForm from './components/AuthForm';
-import './styles/reduction.scss';
+import './styles/reduction.scss'; 
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
 import { postContact } from './host/config';
 const AlertPage = React.lazy(() => import('./pages/AlertPage'));
@@ -58,6 +58,7 @@ class App extends React.Component {
    
       return (
      <div>
+       {/* salom jigar */}
         { (!this.state.token)?(
       <div style={{width:'100vw',height:'100vh',display:'flex', justifyContent:'center',alignItems:'center' }}>
   
@@ -90,19 +91,13 @@ class App extends React.Component {
       <BrowserRouter >
         <GAListener>
           <Switch>
-            {/* <LayoutRoute
-              exact
-              path="/"
-              layout={AuthForm}
-            /> */}
+       
 
             <MainLayout>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/" component={DashboardPage} /> 
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />
-                {/* <Route exact path="/widgets" component={WidgetPage} /> */}
-                {/* <Route exact path="/typography" component={TypographyPage} /> */}
                 <Route exact path="/alerts" component={AlertPage} />
                 <Route exact path="/product" component={Product} />
                 <Route exact path="/badges" component={BadgePage} />

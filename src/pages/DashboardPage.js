@@ -4,6 +4,7 @@ import React from 'react';
 import { Card, Col, Row } from 'reactstrap';
 import { getCategorys, getCompany, getContacts,getProduct, getPromotions, getSubCategorys, postCopany, putCompany } from '../host/config';
 import axios from 'axios';
+const {lang, language1}=require('../host/lang')
 
 class DashboardPage extends React.Component {
   state={
@@ -13,7 +14,9 @@ class DashboardPage extends React.Component {
    aksiya:[],
    data:[],
    file:[],
-   file2:[]
+   file2:[],  
+   lang1:(localStorage.getItem('lang')==null?("uz:"):(localStorage.getItem('lang')))
+
   }
 
 
@@ -110,12 +113,15 @@ putCompanys=()=>{
   })
 }
 componentDidMount(){
-  this.getcategory()
+  
   this.getImaga()
   this.getSubCategory()
   this.getProduct1()
   this.getCompanys()
-
+  this.getcategory()
+  setTimeout(() => {
+    this.getcategory()
+  }, 100);
 }
 
   render() {
@@ -159,7 +165,7 @@ componentDidMount(){
               
                 
               <div className='mt-3'>
-                <h5>Phone</h5>
+                <h5>{this.state.lang == "uz"? (language1.uz.item):(this.state.lang == "ru" ?(language1.ru.item): (language1.en.item))}</h5>
                 <input type="number" id="phone" placeholder="Phone Number" />
               </div>
               

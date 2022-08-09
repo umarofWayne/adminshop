@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import { Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 // import { Button, ButtonGroup, ButtonToolbar, Card, CardBody, CardHeader, CardText, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown } from 'reactstrap';
-import { deleteSubCategorys, getCategorys, getSubCategorys, PostCategorys, PostSubCategorys } from '../host/config';
+import { deleteSubCategorys, getCategorys, getSubCategorys, PostCategorys, PostSubCategorys, putSubcategory } from '../host/config';
 import Page from '../components/Page';
-
+import '../styles/components/modalDelete.css'
 export default class Subcategory extends Component {
   state = {
     modal: false,
     data:[],
     data1:[],
-    file:null
+    file:null,
+    editmodal: false,
+    slug1:"",
+    delete1:''
   };
 getCategory=()=>{
   getCategorys().then(res=>{
@@ -26,11 +29,45 @@ console.log(res.data);
   })  
   // console.log(this.state.data1);
 }
+
+openModal1=(slug)=>{
+  document.querySelector('.ModalDelete1').style="top: 0"
+  document.querySelector('.ModalColumn').style="top: 30%"
+  
+this.setState({delete1:slug})
+    }
+    CloseModal1=()=>{
+      document.querySelector('.ModalDelete1').style="top: -100%"
+      document.querySelector('.ModalColumn').style="top: -100%"
+        }
 deleteSubcaregory=(slug)=>{
 deleteSubCategorys(slug).then(res=>{
   this.getSubCategory()
 })
+  
+this.CloseModal1()
 }
+
+
+
+putSubcategorys=(slug)=>{
+  var data={
+    "title_uz": document.querySelector('#edituzsubcategory').value,
+    "title_ru": document.querySelector('#editrusubcategory').value,
+    "title_en": document.querySelector('#editensubcategory').value,
+    "category": document.querySelector('#editsubcategory').value,
+  }
+  putSubcategory(this.state.slug1, data).then(res=>{
+    this.getSubCategory()
+    console.log(data)
+    this.edittoggle1()
+  })
+  
+  .catch(err=>{
+    console.log("error",err);
+  })
+}
+
 
 postSubCategory=()=>{
   var data={
@@ -58,8 +95,15 @@ postSubCategory=()=>{
   
   
   }
+  edittoggle =(slug)=>{
+    this.setState({editmodal:true, slug1:slug})
+  }
+  edittoggle1 =()=>{
+    this.setState({editmodal:false})
+  }
 
   componentDidMount(){
+  
     setTimeout(() => {
         this.getCategory()
         this.getSubCategory()
@@ -93,8 +137,8 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                 <CardText>
                 title_ru:{item.title_ru}
                 </CardText>
-              <Button color="warning">edit</Button>
-              <Button color="secondary ml-2" onClick={()=>this.deleteSubcaregory(item.slug)}>delete</Button>
+              <Button color="warning" onClick={()=> this.edittoggle(item.slug)}>edit</Button>
+              <Button color="secondary ml-2" onClick={()=>this.openModal1(item.slug)}>delete</Button>
             </CardBody>
           </Card>
         </Col>})}</Row>
@@ -151,6 +195,69 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                     </Button>
                   </ModalFooter>
                 </Modal>
+
+
+
+
+                <Modal isOpen={this.state.editmodal}>
+                  <ModalHeader >Edit category</ModalHeader>
+                  <ModalBody>
+                  <Form>
+                  <FormGroup>
+                  <Label for="examplename">title_uz</Label>
+                  <Input
+                  id="edituzsubcategory"
+                    type="text"
+                    name="name"
+                    placeholder="title category_uz"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="examplename">title_ru</Label>
+                  <Input
+                  id="editrusubcategory"
+                    type="text"
+                    name="name"
+                    placeholder="title category_ru"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="examplename">title_en</Label>
+                  <Input
+                  id="editensubcategory"
+                    type="text"
+                    name="name"
+                    placeholder="title category_en"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="exampleSelect">Select</Label>
+                  <Input type="select" id="editsubcategory" name="select">
+                   {this.state.data.map(item=>{ return <option value={item.slug}>{item.title}</option>})}
+                  </Input>
+                </FormGroup>
+                 
+              </Form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="primary" onClick={()=>this.putSubcategorys()}>
+                     save
+                    </Button>
+                    <Button color="secondary" onClick={this.edittoggle1}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+
+                <div className="ModalDelete1"> 
+         <div className="ModalColumn">
+           <h2>Delete this?</h2>
+           <div className="ButtonsModalDelete">
+            <button className='btn btn-danger ml-3' onClick={() => this.deleteSubcaregory(this.state.delete1)}>Delete</button>
+            <button className='btn btn-warning' onClick={this.CloseModal1}>Cancel</button>
+           </div>
+         </div>
+        </div>
     </Page>  
     )
   }

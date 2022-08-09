@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup,  Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table } from 'reactstrap';
 import { MdDelete } from 'react-icons/md';
+// import { RiEditBoxFill } from 'react-icons/ri'
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 import Page from '../components/Page';
 import { addPromotions, deleteImages, deleteProducts, getCategorys, getImages, getImgSlug, getProduct, getPromotions, getSubCategorys, PostImages, postProduct } from '../host/config';
 import '../styles/components/productJs.scss'
+// import { lang } from '../host/host';
+
+import '../styles/components/modalDelete.css'
 
 
 export default class Product extends Component {
@@ -125,6 +129,15 @@ export default class Product extends Component {
 
   }
 
+
+  openModal1=()=>{
+document.querySelector('.ModalDelete1').style="top: 0"
+document.querySelector('.ModalColumn').style="top: 30%"
+  }
+  CloseModal1=()=>{
+    document.querySelector('.ModalDelete1').style="top: -100%"
+    document.querySelector('.ModalColumn').style="top: -100%"
+      }
   handleFile(e) {
     let file1 = e.target.files[0];
 
@@ -135,6 +148,7 @@ export default class Product extends Component {
     deleteProducts(slug).then(res => {
       this.getProduct1()
     })
+    this.CloseModal1()
   }
   getPromotion = () => {
     getPromotions().then(res => {
@@ -149,7 +163,10 @@ export default class Product extends Component {
       console.log(res.data);
     })
   }
-
+deleteProduct12=(slug)=>{
+  this.openModal1()
+  this.setState({delete1:slug})
+}
   addPromotion = () => {
     var data = {
       'product': this.state.productSlug,
@@ -205,9 +222,10 @@ export default class Product extends Component {
                 </CardHeader>
                 <CardBody><Table responsive>
                   <thead>
+                  <input placeholder='search title' onKeyUp={()=>{this.setState({})}} className='search33' />
                     <tr>
                       <th>Image</th>
-                      <th>Title <input placeholder='search title' onKeyUp={()=>{this.setState({})}} className='search33' /></th>
+                      <th>Title </th>
                       <th>Description</th>
                       <th>Price</th>
                       <th>Edit</th>
@@ -219,19 +237,22 @@ export default class Product extends Component {
                   </thead>
                   {this.state.data.map(item => {
                     if((item.title).toLowerCase().includes((document.querySelector('.search33').value).toLowerCase())){
-                    return <tbody>
+                    return <tbody className="Tbody">
                       <tr>
-                        <th scope="row"><img className='w-10' style={{ width: '300px' }} src={item.thumbnail == null ? (item.image) : (item.thumbnail.image)} alt='NO image' /></th>
-                        <td>{item.title}</td>
+                        <th scope="row"><img className='w-10' style={{ width: '300px' }} src={item.thumbnail == null ? (item.image) : (item.thumbnail.imageURL)} alt='NO image' /></th>
+                        <td className='Name-item'>{item.title}</td>
                         <td>{item.description}</td>
-                        <td>{item.price}</td>
-                        <td><button className='btn btn-success'>Edit</button></td>
-                        <td onClick={() => this.handleShow1(item.slug)}> <Button outline color="info">Add Aksiya</Button></td>
-                        <td> <Button outline color="info" onClick={() => this.toggle(item.slug)} >Add Image</Button></td>
-                        <td><button className='btn btn-danger ml-3' onClick={() => this.deleteProduct(item.slug)}>Delete</button></td>
+                        <td className='Price-item'>{item.price}</td>
+                        <td><button className='btn btn-warning'>edit</button></td>
+                        <td onClick={() => this.handleShow1(item.slug)}> <Button className="btn-info" outline color="white">Add Aksiya</Button></td>
+                        <td> <Button outline color="btn btn-info" onClick={() => this.toggle(item.slug)} >Add Image</Button></td>
+                        <td><button className='btn btn-danger ml-3' onClick={() => this.deleteProduct12(item.slug)}>Delete</button></td>
                       </tr>
                     </tbody>
 }
+                         
+                  
+
                   })}   </Table>
                 </CardBody>
               </Card>
@@ -341,7 +362,7 @@ export default class Product extends Component {
                 <div style={{ display: "flex" }}>
                   {this.state.slugdataimages.map(item => {
                   return <div className='slugdataimages'>
-                    <img style={{ width: "100px" }} src={item.image} />
+                    <img style={{ width: "100px" }} src={item.imageURL} />
                     <button type='button' style={{ display: "none" }} className='produt_hover_btn'><MdDelete onClick ={() => this.deleteImage(item.id)} className="delete12" /></button>
                   </div>
                 })} </div>
@@ -358,6 +379,17 @@ export default class Product extends Component {
             </ModalFooter>
           </Modal>
         </Page>
+
+
+        <div className="ModalDelete1"> 
+         <div className="ModalColumn">
+           <h2>Delete this?</h2>
+           <div className="ButtonsModalDelete">
+            <button className='btn btn-danger ml-3' onClick={() => this.deleteProduct(this.state.delete1)}>Delete</button>
+            <button className='btn btn-warning' onClick={this.CloseModal1}>Cancel</button>
+           </div>
+         </div>
+        </div>
       </>
     )
   }
