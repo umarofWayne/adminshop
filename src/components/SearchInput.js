@@ -16,7 +16,9 @@ state={
     window.location.reload();
   }
 
-
+componentDidMount(){
+  document.getElementById('language').value=(localStorage.getItem('lang')==null?("ru"):(localStorage.getItem('lang')))
+}
 
   render() {
     return (

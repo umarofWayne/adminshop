@@ -1,5 +1,5 @@
 import { host,access_token,httpRequest } from "./host"
-import { lang} from "./host"
+import { lang } from "./host"
 // post login
 export const postContact= (data) => {
     const config = {
@@ -17,6 +17,18 @@ export const postContact= (data) => {
       export let getCategorys= () => {
         let config = {
           url: `${host}/api/v1/categories/`,
+          method: "GET",
+          headers:{
+            "Accept-Language": `${lang}`,
+          }
+        };
+        return httpRequest(config);
+      }
+
+
+      export let getCategory= (slug) => {
+        let config = {
+          url: `${host}/api/v1/categories/${slug}/`,
           method: "GET",
           headers:{
             "Accept-Language": `${lang}`,
@@ -51,7 +63,7 @@ export const postContact= (data) => {
       export const putCategory=(slug, data)=>{
         let config = {
           url:`${host}/api/v1/categories/${slug}/update/`,
-          method: "PUT",
+          method: "PATCH",
           data: data,
           headers: {
             'Authorization': `Token ${access_token}`,
@@ -69,6 +81,22 @@ export const postContact= (data) => {
         let config = {
           url: `${host}/api/v1/subcategories/`,
           method: "GET",
+          headers:{
+            "Accept-Language": `${lang}`,
+          }
+        };
+        return httpRequest(config);
+      }
+
+
+
+      export let getSubCategory= (slug) => {
+        let config = {
+          url: `${host}/api/v1/subcategories/${slug}/`,
+          method: "GET",
+          headers:{
+            "Accept-Language": `${lang}`,
+          }
         };
         return httpRequest(config);
       }
@@ -100,7 +128,7 @@ export const postContact= (data) => {
       export const putSubcategory=(slug, data)=>{
         let config = {
           url:`${host}/api/v1/subcategories/${slug}/update/`,
-          method: "PUT",
+          method: "PATCH",
           data: data,
           headers: {
             'Authorization': `Token ${access_token}`,
@@ -115,8 +143,8 @@ export const postContact= (data) => {
        
 export const putProduct=(slug, data)=>{
   let config = {
-    url:`${host}//api/v1/products/${slug}/`,
-    method: "PUT",
+    url:`${host}/api/v1/products/${slug}/`,
+    method: "PATCH",
     data: data,
     headers: {
       'Authorization': `Token ${access_token}`,
@@ -127,12 +155,28 @@ export const putProduct=(slug, data)=>{
 }
 
 export const getProduct=()=>{
-          const config = {
-            url: `${host}/api/v1/products/`,
-            method: "GET",
-          }
-          return httpRequest(config)
-        }
+  const config = {
+    url: `${host}/api/v1/products/`,
+    method: "GET",
+    headers:{
+      "Accept-Language": `${lang}`,
+    }
+  }
+  return httpRequest(config)
+}
+
+
+export const getProducts=(slug)=>{
+  const config = {
+    url: `${host}/api/v1/products/${slug}/`,
+    method: "GET",
+    headers:{
+      "Accept-Language": `${lang}`,
+    }
+  }
+  return httpRequest(config)
+}
+
 
         export const deleteProducts= slug => {
           let config = {
@@ -177,6 +221,9 @@ export const getProduct=()=>{
       const config={
         url:`${host}/api/v1/products/images/`,
         method: "GET",
+        headers:{
+          "Accept-Language": `${lang}`,
+        }
       }
       return httpRequest(config)
     }
@@ -211,8 +258,8 @@ export const getProduct=()=>{
 
     export const putPromotion=(id, data)=>{
       let config = {
-        url:`${host}/api/v1/subcategories/${id}/update/`,
-        method: "PUT",
+        url:`${host}/api/v1/products/promotions/${id}/update/`,
+        method: "PATCH",
         data: data,
         headers: {
           'Authorization': `Token ${access_token}`,
@@ -228,10 +275,24 @@ export const getProduct=()=>{
       const config={
         url:`${host}/api/v1/products/promotions/`,
         method: "GET",
+        headers:{
+          "Accept-Language": `${lang}`,
+        }
       }
       return httpRequest(config)
     };
 
+
+    export const getPromotion=(id)=>{
+      const config={
+        url:`${host}/api/v1/products/promotions/${id}`,
+        method: "GET",
+        headers:{
+          "Accept-Language": `${lang}`,
+        }
+      }
+      return httpRequest(config)
+    };
 
    
     export const  addPromotions=(data,id)=>{
@@ -263,6 +324,9 @@ export const getProduct=()=>{
       const config={
         url:`${host}/api/v1/products/${slug}/`,
         method: "GET",
+        headers:{
+          "Accept-Language": `${lang}`,
+        }
       }
       return httpRequest(config)
     };
@@ -292,18 +356,21 @@ export const getCompany=()=>{
   const config={
     url:`${host}/api/v1/company/4/`,
     method: "GET",
+    headers:{
+      "Accept-Language": `${lang}`,
+    }
   }
   return httpRequest(config)
 };
 
 
-export const putCompany=()=>{
+export const putCompany=(data)=>{
   const config={
     url:`${host}/api/v1/company/4/`,
     method: "PATCH",
+    data:data,
     headers:{
     'Authorization': `Token ${access_token}`,
-    "Accept-Language": `${lang}`,
     "Content-Type":"multipart/form-data"
   }
 }
@@ -351,15 +418,16 @@ export const postDollors=(data)=>{
 };
 export const getDollor=()=>{
   const config = {
-    url:`${host}/api/v1/currency/${3}/`,
+    url:`${host}/api/v1/currency/${4}/`,
     method:"GET"
   }
   return httpRequest(config)
 };
-export const putDollor=()=>{
+export const putDollor=(data)=>{
   const config={
-    url:`${host}/api/v1/currency/${3}/`,
+    url:`${host}/api/v1/currency/${4}/`,
     method: "PATCH",
+    data:data,
     headers:{
     'Authorization': `Token ${access_token}`,
     // "Content-Type":"multipart/form-data"

@@ -15,6 +15,9 @@
     padding: 3% 2%;
     background-color: #fff;
     transition: all 0.4s ease-in-out;
+    /* border: 1px solid rgba(0, 0, 0, 0.808); */
+    box-shadow: 0 0 8px black;
+    border-radius: 15px;
 }
 .ButtonsModalDelete{
     width: 30%;
@@ -29,3 +32,151 @@
 .Price-item{
     font-weight: 700;
 }
+.row{
+display: grid;
+grid-template-columns: auto auto auto auto;
+}
+.flex-row{
+    margin-top: 10px;
+    width: 300px;   
+display: block;
+padding: 20px;
+border-radius: 15px;
+}
+.card-body{
+padding: 0;
+margin: 0;
+margin-top: 10px;
+}
+.card-img{
+width: 100% !important;    
+height: 180px !important;
+}
+input{
+width: 310px;
+}
+select{
+width: 310px;
+}
+.form-control{
+width: 310px;
+}
+
+.Table-PromotionPage{
+    width: 85vw;
+}
+
+@media (max-width:1440px) {
+    .row{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        }
+        .flex-row{
+            margin-top: 10px;
+            width: 300px;   
+        display: block;
+        padding: 20px;
+        border-radius: 15px;
+        }
+        .card-body{
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        }
+        .card-img{
+        width: 100% !important;    
+        height: 180px !important;
+        }
+
+}
+
+@media (max-width:1024px) {
+    .row{
+        display: grid;
+        grid-template-columns: auto auto auto ;
+        overflow: auto;
+        }
+        .flex-row{
+            margin-top: 10px;
+            width: 300px;   
+        display: block;
+        padding: 20px;
+        border-radius: 15px;
+        }
+        .card-body{
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        }
+        .card-img{
+        width: 100% !important;    
+        height: 180px !important;
+        }
+
+}
+
+@media (max-width:680px) {
+    .row{
+        display: grid;
+        grid-template-columns: auto auto;
+        overflow: auto;
+        }
+        .flex-row{
+            margin-top: 10px;
+            width: 300px;   
+        display: block;
+        padding: 20px;
+        border-radius: 15px;
+        }
+        .card-body{
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        }
+        .card-img{
+        width: 100% !important;    
+        height: 180px !important;
+        }
+
+}
+@media screen and (max-width: 450px){
+    .ModalColumn{
+        width: 70%;
+        height: 30vh;
+        padding-top: 7%;
+        left: 5%;
+        position: relative;
+    }
+    .ButtonsModalDelete{
+        margin: 0;
+        width: 60%;
+        position: absolute;
+        bottom: 5%;
+        right: 0;
+    }
+}
+
+@media (max-width:370px) {
+    .row{
+        display: grid;
+        grid-template-columns: auto ;
+        overflow-x: hidden;
+        }
+        .flex-row{
+            margin-top: 10px;
+            width: 250px;   
+        display: block;
+        padding: 20px;
+        border-radius: 15px;
+        margin-left: 10px;
+        }
+        .card-body{
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        }
+        .card-img{
+        width: 100% !important;    
+        height: 180px !important;
+        }
+    }

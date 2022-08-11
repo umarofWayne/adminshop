@@ -1,10 +1,14 @@
 import Page from '../components/Page';
 import React,{Component} from 'react';
 import {  Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
-import { deleteCategorys, getCategorys, PostCategorys, putCategory } from '../host/config';
+import { deleteCategorys, getCategory, getCategorys, PostCategorys, putCategory } from '../host/config';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 import '../styles/components/modalDelete.css'
+import "./subcategory.css"
+import "./style.css"
+const {lang, language1}=require('../host/lang')
+
 
 export default class ButtonGroupPage extends Component {
   state = {
@@ -13,7 +17,8 @@ export default class ButtonGroupPage extends Component {
     data:[],
     file:null,
     slug1:"",
-    delete1: ""
+    delete1: "",
+    lang1:(localStorage.getItem('lang')==null?("ru"):(localStorage.getItem('lang')))
   };
 getCategory=()=>{
   getCategorys().then(res=>{
@@ -71,6 +76,8 @@ putCategorys=(slug)=>{
     "title_uz": document.querySelector('#edituzcategory').value,
     "title_ru": document.querySelector('#editrucategory').value,
     "title_en": document.querySelector('#editencategory').value,
+    "image":this.state.file
+
   }
   putCategory(this.state.slug1, data).then(res=>{
     this.getCategory()
@@ -89,6 +96,12 @@ putCategorys=(slug)=>{
     this.setState({modal:false})
   };
   edittoggle =(slug)=>{
+    getCategory(slug).then(res=>{
+      console.log(res.data);
+     document.querySelector('#edituzcategory').value=res.data.title;
+     document.querySelector('#editrucategory').value=res.data.title;
+     document.querySelector('#editencategory').value=res.data.title;
+    })
     this.setState({editmodal:true, slug1:slug})
   }
   edittoggle1 =()=>{
@@ -106,12 +119,12 @@ putCategorys=(slug)=>{
   render() {
     return (
     <Page
-      title="Category"
-      breadcrumbs={[{ name: 'Category', active: true }]}
+      title={this.state.lang1=="uz"?("Turkum"):(this.state.lang1=="ru"?("Категория"):("Category"))}
+      breadcrumbs={[{ name: `${(localStorage.getItem("lang"))=="uz"?("Turkum"):((localStorage.getItem("lang"))=="en"?("Category"):("Категория"))}` , active: true }]}
     >
-                <Button color="primary" onClick={this.toggle}>create</Button>
+                <Button color="primary" onClick={this.toggle}>{this.state.lang1=="uz"?("Yaratish"):(this.state.lang1=="ru"?("Создать"):("create "))} </Button>
 
-          <Row>
+          <Row className="Cards-subcategory">
             {this.state.data.map(item=>{
 return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
           <Card className="flex-row">
@@ -123,18 +136,18 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
             <CardBody>
               <CardTitle>{item.title}</CardTitle>
        
-              <Button color=" btn btn-success" onClick={()=>this.edittoggle(item.slug)}>edit</Button>
-              <Button color="btn btn-danger ml-2" onClick={()=>this.openModal1(item.slug)}  >delete</Button>
+              <Button color=" btn btn-warning" onClick={()=>this.edittoggle(item.slug)}> {this.state.lang1=="uz"?("Tahrirlash"):(this.state.lang1=="ru"?("Редактировать"):("Edit "))}  </Button>
+              <Button color="btn btn-danger ml-2" onClick={()=>this.openModal1(item.slug)} > {this.state.lang1=="uz"?("O`chirish"):(this.state.lang1=="ru"?("Удалить"):("Delete"))} </Button>
             </CardBody>
           </Card>
         </Col>})}</Row>
         <Modal isOpen={this.state.modal}>
-                  <ModalHeader >Modal title</ModalHeader>
+                  <ModalHeader > {this.state.lang1=="uz"?("Yaratish"):(this.state.lang1=="ru"?("Создать"):("create "))} </ModalHeader>
                   <ModalBody>
                   <Form>
                   <FormGroup>
-                  <Label for="examplename">title_uz</Label>
-                  <Input
+                  <Label for="examplename"> {this.state.lang1=="uz"?("Nomi UZ"):(this.state.lang1=="ru"?("Названия Уз"):("title_uz"))} </Label>
+                  <input className='input12'
                   id="uzcategory"
                     type="text"
                     name="name"
@@ -142,8 +155,8 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplename">title_ru</Label>
-                  <Input
+                  <Label for="examplename">{this.state.lang1=="uz"?("Nomi RU"):(this.state.lang1=="ru"?("Названия RU"):("title_ru"))}</Label>
+                  <input className='input12'
                   id="rucategory"
                     type="text"
                     name="name"
@@ -151,16 +164,16 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplename">title_en</Label>
-                  <Input
+                  <Label for="examplename"> {this.state.lang1=="uz"?("Nomi EN"):(this.state.lang1=="ru"?("Названия EN"):("title_en"))} </Label>
+                  <input className='input12'
                   id="encategory"
                     type="text"
                     name="name"
                     placeholder="title category_en"
                   />
                 </FormGroup>
-                 <FormGroup>
-                  <Label for="exampleImage">Image</Label>
+                <FormGroup>
+                  <Label for="exampleImage"> {this.state.lang1=="uz"?("Rasm"):(this.state.lang1=="ru"?("Изображение"):("Image"))} </Label>
                   <Input onInput={(e)=>this.handleFile(e)} id="file" type="file" >
                   </Input>
                 </FormGroup>
@@ -168,10 +181,10 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={(e)=>this.postCategory(e)}>
-                     save
+              {this.state.lang1=="uz"?("saqlash"):(this.state.lang1=="ru"?("хранить"):("save"))}
                     </Button>
                     <Button color="secondary" onClick={this.toggle1}>
-                      Cancel
+              {this.state.lang1=="uz"?("Bekor qilish"):(this.state.lang1=="ru"?("Отмена"):("Cancel"))}
                     </Button>
                   </ModalFooter>
                 </Modal>
@@ -187,20 +200,20 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
 
 
                 <Modal isOpen={this.state.editmodal}>
-                  <ModalHeader >Edit category</ModalHeader>
+                  <ModalHeader > {this.state.lang1=="uz"?("Kategoriyani o`zgartirish"):(this.state.lang1=="ru"?("Изменить категорию"):("Edit category"))} </ModalHeader>
                   <ModalBody>
                   <Form>
                   <FormGroup>
-                  <Label for="examplename">title_uz</Label>
+                  <Label for="examplename"> {this.state.lang1=="uz"?("Nomi UZ"):(this.state.lang1=="ru"?("Названия Уз"):("title_uz"))} </Label>
                   <Input
                   id="edituzcategory"
                     type="text"
                     name="name"
-                    placeholder="title category_uz"
+                    placeholder="title category_uz" 
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplename">title_ru</Label>
+                  <Label for="examplename"> {this.state.lang1=="uz"?("Nomi RU"):(this.state.lang1=="ru"?("Названия RU"):("title_ru"))} </Label>
                   <Input
                   id="editrucategory"
                     type="text"
@@ -209,7 +222,7 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplename">title_en</Label>
+                  <Label for="examplename">{this.state.lang1=="uz"?("Nomi EN"):(this.state.lang1=="ru"?("Названия EN"):("title_en"))} </Label>
                   <Input
                   id="editencategory"
                     type="text"
@@ -217,24 +230,29 @@ return <Col lg={6} md={12} sm={12} xs={12} className="mb-3">
                     placeholder="title category_en"
                   />
                 </FormGroup>
+                <FormGroup>
+                  <Label for="exampleImage"> {this.state.lang1=="uz"?("Rasm"):(this.state.lang1=="ru"?("Изображение"):("Image"))} </Label>
+                  <Input onInput={(e)=>this.handleFile(e)} id="file" type="file" >
+                  </Input>
+                </FormGroup>
                  
               </Form>
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={(e)=>this.putCategorys(e)}>
-                     save
-                    </Button>
+              {this.state.lang1=="uz"?("saqlash"):(this.state.lang1=="ru"?("хранить"):("save"))}
+                    </Button>   
                     <Button color="secondary" onClick={this.edittoggle1}>
-                      Cancel
+              {this.state.lang1=="uz"?("Bekor qilish"):(this.state.lang1=="ru"?("Отмена"):("Cancel"))}
                     </Button>
                   </ModalFooter>
                 </Modal>
                 <div className="ModalDelete1"> 
          <div className="ModalColumn">
-           <h2>Delete this?</h2>
+           <h2> {this.state.lang1=="uz"?("Bu o`chirilsinmi?"):(this.state.lang1=="ru"?("Удалить это?"):("Delete this?"))}  </h2>
            <div className="ButtonsModalDelete">
-            <button className='btn btn-danger ml-3' onClick={() => this.deleteCategory(this.state.delete1)}>Delete</button>
-            <button className='btn btn-warning' onClick={this.CloseModal1}>Cancel</button>
+            <button className='btn btn-danger ml-3' onClick={() => this.deleteCategory(this.state.delete1)}> {this.state.lang1=="uz"?("O`chirish"):(this.state.lang1=="ru"?("Удалить"):("Delete"))} </button>    
+            <button className='btn btn-warning' onClick={this.CloseModal1}>  {this.state.lang1=="uz"?("Bekor qilish"):(this.state.lang1=="ru"?("Отмена"):("Cancel"))} </button>
            </div>
          </div>
         </div>
