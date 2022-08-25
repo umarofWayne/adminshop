@@ -22,6 +22,8 @@ import {
   NavLink as BSNavLink,
 } from 'reactstrap';
 import bn from '../../utils/bemnames';
+// const {lang, language1}=require('../host/lang')
+
 
 const sidebarBackground = {
   backgroundImage: `url("${sidebarBgImage}")`,
@@ -29,19 +31,20 @@ const sidebarBackground = {
   backgroundRepeat: 'no-repeat',
 };
 
+
 const navComponents = [
   // { to: '/buttons', name: 'buttons', exact: false, Icon: MdRadioButtonChecked },
-  { to: '/product', name: 'Products', exact: false, Icon: MdBorderAll },
+  { to: '/product', name: `${(localStorage.getItem("lang"))=="uz"?("Mahsulot"):((localStorage.getItem("lang"))=="en"?("Product"):("Товар"))}`, exact: false, Icon: MdBorderAll },
 
   {
     to: '/category',
-    name: 'Category',
-    exact: false,
+    name: `${(localStorage.getItem("lang"))=="uz"?("Turkum"):((localStorage.getItem("lang"))=="en"?("Category"):("Категория"))}`,
+    exact: false, 
     Icon: MdGroupWork,
   },
-  { to: '/subcategory', name: 'subcategory', exact: false, Icon: MdInsertChart },
-  { to: '/productimg', name: 'Product Images', exact: false, Icon: MdChromeReaderMode },
-  { to: '/promotions', name: 'Aksiya', exact: false, Icon: MdViewList },
+  { to: '/subcategory', name:`${(localStorage.getItem("lang"))=="uz"?("Pastki kategoriya"):((localStorage.getItem("lang"))=="en"?("Subcategory"):("Подкатегория"))}`, exact: false, Icon: MdInsertChart },
+  // { to: '/productimg', name: 'Product Images', exact: false, Icon: MdChromeReaderMode },
+  { to: '/promotions', name: `${(localStorage.getItem("lang"))=="uz"?("Aqsiya"):((localStorage.getItem("lang"))=="en"?("Aksiya"):("Аксия"))}`, exact: false, Icon: MdViewList },
   // {
   //   to: '/dropdowns',
   //   name: 'dropdowns',
@@ -56,7 +59,7 @@ const navComponents = [
 
 
 const navItems = [
-  { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+  { to: '/', name:`${(localStorage.getItem("lang"))=="uz"?("Bosh sahifa"):((localStorage.getItem("lang"))=="en"?("Dashboard"):("Домашняя страница"))}` , exact: true, Icon: MdDashboard },
   // { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
 
   // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },  
@@ -80,6 +83,7 @@ class Sidebar extends React.Component {
       };
     });
   };
+
 
   render() {
     return (
@@ -117,7 +121,7 @@ class Sidebar extends React.Component {
               <BSNavLink className={bem.e('nav-item-collapse')}>
                 <div className="d-flex">
                   <MdExtension className={bem.e('nav-item-icon')} />
-                  <span className=" align-self-start">Components</span>
+                  <span className=" align-self-start"> {(localStorage.getItem("lang"))=="uz"?("Komponentlar"):((localStorage.getItem("lang"))=="en"?("Components"):("Составные части"))} </span>
                 </div>
                 <MdKeyboardArrowDown
                   className={bem.e('nav-item-icon')}

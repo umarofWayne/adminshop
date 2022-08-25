@@ -31,7 +31,7 @@ const Page = ({
           )}
         {breadcrumbs && (
           <Breadcrumb className={bem.e('breadcrumb')}>
-            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>{(localStorage.getItem("lang"))=="uz"?("Admin"):((localStorage.getItem("lang"))=="en"?("Admin"):("Aдминистратор"))}</BreadcrumbItem>
             {breadcrumbs.length &&
               breadcrumbs.map(({ name, active }, index) => (
                 <BreadcrumbItem key={index} active={active}>

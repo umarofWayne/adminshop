@@ -1,0 +1,52 @@
+.slugdataimages {
+  position: relative;
+}
+
+.slugdataimages img {
+  margin: 5px;
+}
+
+.slugdataimages img:hover {
+  cursor: pointer;
+}
+
+.slugdataimages:hover .produt_hover_btn {
+  display: block !important;
+  position: absolute;
+  top: -6px;
+  right: 0;
+  border: none;
+  color: black;
+  background-color: white;
+}
+
+.slugdataimages:hover .delete12:hover {
+  color: red;
+  text-shadow: 0px 0px 10px red;
+}
+
+.slugdataimages:hover .delete12:active {
+  color: rgba(255, 0, 0, 0.507);
+  text-shadow: 0px 0px 10px red;
+}
+
+.slugdataimages:hover .ModalDelete1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 200;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.616);
+}
+
+.btn-edit {
+  background-color: #f3e13b;
+}
+
+.btn {
+  font-size: 14px;
+}
+/*# sourceMappingURL=productJs.css.map */

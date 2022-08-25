@@ -2,8 +2,10 @@ import Page from '../components/Page';
 import './style.css'
 import React from 'react';
 import { Card, Col, Row } from 'reactstrap';
-import { getCategorys, getCompany, getContacts,getProduct, getPromotions, getSubCategorys, postCopany, putCompany } from '../host/config';
+import { getCategorys, getCompany, getContacts,getDollor,getProduct, getPromotions, getSubCategorys, postCopany, postDollors, putCompany, putDollor } from '../host/config';
 import axios from 'axios';
+import "./subcategory.css"
+const {lang, language1}=require('../host/lang')
 
 class DashboardPage extends React.Component {
   state={
@@ -13,19 +15,18 @@ class DashboardPage extends React.Component {
    aksiya:[],
    data:[],
    file:[],
-   file2:[]
+   file2:[],  
+   lang1:(localStorage.getItem('lang')==null?("ru"):(localStorage.getItem('lang')))
   }
 
 
 
   handleFile(e) {
     let file1 = e.target.files[0];
-  // console.log(file1);
   this.setState({file:file1})
   }
   handleFile2(e) {
     let file2 = e.target.files[0];
-  // console.log(file1);
   this.setState({file2:file2})
   }
  getcategory=()=>{
@@ -64,7 +65,6 @@ getImaga=()=>{
 
 getCompanys=()=>{
 getCompany().then(res=>{
-// console. log(res.data);
 document.querySelector('#phone').value=res.data.phone
 document.querySelector('#team').value=res.data.team
 document.querySelector('#team_story').value=res.data.team_story
@@ -99,8 +99,7 @@ putCompanys=()=>{
   "team": document.querySelector('#team').value,
   "team_story": document.querySelector('#team_story').value,
   }
-  putCompany(put).then(res=>{
-    this.getCompanys();
+    putCompany(put).then(res=>{
     document.querySelector('#phone').value=res.data.phone
     document.querySelector('#team').value=res.data.team
     document.querySelector('#team_story').value=res.data.team_story
@@ -109,13 +108,25 @@ putCompanys=()=>{
     this.state.file2=res.data.logo
   })
 }
+Dollor=()=>{
+  var data={
+    "value":document.querySelector('#dataDollor').value
+  }
+  putDollor(data).then(res=>{
+  })
+}
+getDollors=()=>{
+  getDollor().then(res=>{
+    document.querySelector('#dataDollor').value=res.data.value
+  })
+}
 componentDidMount(){
-  this.getcategory()
   this.getImaga()
   this.getSubCategory()
   this.getProduct1()
   this.getCompanys()
-
+  this.getcategory()
+  this.getDollors()
 }
 
   render() {
@@ -123,74 +134,77 @@ componentDidMount(){
     return (
       <Page
         className="DashboardPage"
-        title="Dashboard"
-        breadcrumbs={[{ name: 'Dashboard', active: true }]}
+        title={this.state.lang1=="uz"?("Bosh sahifa"):(this.state.lang1=="ru"?("Домашняя страница"):("Homepage"))}
+        breadcrumbs={[{ name: `${this.state.lang1=="uz"?("Bosh sahifa"):(this.state.lang1=="ru"?("Домашняя страница"):("Homepage"))}`, active: true }]}
       >
-        <Row>
-          <Col lg={3} md={6} sm={6} xs={12}>
+        <Row className="Dashboard">
+          <Col className="Column-dashboard">
                 <div class="bg-info w-100 card12">
                     <h1>{this.state.product.length}</h1>
-                    <p>Product</p>
+                    <p>{this.state.lang1=="uz"?("Maxsulot"):(this.state.lang1=="ru"?("Товар"):("Product"))}</p>
                </div>
           </Col>
 
-          <Col lg={3} md={6} sm={6} xs={12}>
+          <Col className="Column-dashboard">
      <div className="card12">
      <h1>{this.state.category.length}</h1>
-                    <p>Category</p>
+                    <p>{this.state.lang1=="uz"?("Turlar"):(this.state.lang1=="ru"?("Категория"):("Category"))}</p>
        </div>
           </Col>
 
-          <Col lg={3} md={6} sm={6} xs={12}>
+          <Col className="Column-dashboard">
      <div className="card12">
      <h1>{this.state.subCategory.length}</h1>
-                    <p>SubCategory</p>
+                    <p>{this.state.lang1=="uz"?("Qo`shimcha tur"):(this.state.lang1=="ru"?("Подкатегория"):("SubCategory"))}</p>
        </div>
-          </Col>
+          </Col >
 
-          <Col lg={3} md={6} sm={6} xs={12}>
+          <Col className="Column-dashboard">
         <div className="card12">
         <h1>{this.state.aksiya.length}</h1>
-                    <p>Promotion</p>
+                    <p>{this.state.lang1=="uz"?("Aksiyalar"):(this.state.lang1=="ru"?("Продвижение"):("Promotion"))}</p>
           </div>
-          </Col>
+          </Col >
         </Row>
               <div className="InputGroup">
               
                 
               <div className='mt-3'>
-                <h5>Phone</h5>
-                <input type="number" id="phone" placeholder="Phone Number" />
+                <h5>{this.state.lang1=="uz"?("Telefon raqam"):(this.state.lang1=="ru"?("Номер телефона"):("Phone Number"))}</h5>
+                <input type="number" id="phone" placeholder={this.state.lang1=="uz"?(""):(this.state.lang1=="ru"?(""):(""))} />
               </div>
               
               <div className='mt-3'>
-                <h5>Team</h5>
-                <input type="text" id="team" placeholder="team" requiered />
+                <h5>{this.state.lang1=="uz"?("Jamoa"):(this.state.lang1=="ru"?("Команда"):("Team"))}</h5>
+                <input type="text" id="team" placeholder={this.state.lang1=="uz"?("Jamoa"):(this.state.lang1=="ru"?("Команда"):("Team"))} requiered />
               </div>
               <div className='mt-3'>
-                <h5>Team Story</h5>
-                <input type="text" id="team_story" placeholder="Team Story" requiered />
+                <h5>{this.state.lang1=="uz"?("Tariximiz"):(this.state.lang1=="ru"?("История команды"):("Team Story"))}</h5>
+                <input type="text" id="team_story" placeholder={this.state.lang1=="uz"?("Tariximiz"):(this.state.lang1=="ru"?("История команды"):("Team Story"))} requiered />
               </div>
               <div className='mt-3'>
-                <h5>Longitude</h5>
-                <input type="text" id="longitude" placeholder="Longitude" />
+                <h5>{this.state.lang1=="uz"?("Uzunlik xaritadagi"):(this.state.lang1=="ru"?("Длина указана на карте"):("Length is on the map"))}</h5>
+                <input type="text" id="longitude" placeholder={this.state.lang1=="uz"?("Uzunlik xaritadagi"):(this.state.lang1=="ru"?("Длина указана на карте"):("Length is on the map"))} />
               </div>
               <div className='mt-3'>
-                <h5>Latitude</h5>
-                <input type="text" id="latitude" placeholder='Latitude' requiered />
+                <h5>{this.state.lang1=="uz"?("Kenglik xaritadagi"):(this.state.lang1=="ru"?("Широта на карте"):("Latitude on the map"))}</h5>
+                <input type="text" id="latitude" placeholder={this.state.lang1=="uz"?("Kenglik xaritadagi"):(this.state.lang1=="ru"?("Широта на карте"):("Latitude on the map"))} requiered />
               </div>
               <div className='mt-3'>
-              <h5>Company logo</h5>
+              <h5>{this.state.lang1=="uz"?("Kompaniya logotipi"):(this.state.lang1=="ru"?("Логотип компании"):("Company logo"))}</h5>
                 <input className='d-block mt-2' onInput={(e) => this.handleFile2(e)} type="file" placeholder='logo' name="" id="logo" />
               </div>
               <div className='mt-3'>
-                <h5>About Img</h5>
+                <h5>{this.state.lang1=="uz"?("Biz haqimizda rasm"):(this.state.lang1=="ru"?("картина о нас"):("Picture about us"))}</h5>
                 <input type="file" onInput={(e) => this.handleFile(e)} id="aboutImg" requiered />
               </div>
 
               </div>
-              <button className='btn btn-primary mt-2' onClick={()=> this.putCompanys()}>yuborish</button>
-       
+              <button className='btn btn-primary mt-2 btn-send' onClick={()=> this.putCompanys()}>{this.state.lang1=="uz"?("Yuborish"):(this.state.lang1=="ru"?("Отправка"):("Sending"))}</button>
+
+              <div className="dollor12 mt-3">
+                <h5>Dollar kursi</h5>
+       <input className='input-dollar' type="number" id='dataDollor'/><button onClick={()=>{this.Dollor()}} className="btn btn-primary">{this.state.lang1=="uz"?("Qiymatni yuborish"):(this.state.lang1=="ru"?("Отправить значение"):("Send value"))}</button></div>
       </Page>
     );
   }
